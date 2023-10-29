@@ -23,6 +23,8 @@ public:
 	static bool pressed(int keycode);
 	static bool justPressed(int keycode);
 
+	static bool clicked(int button);
+	static bool justClicked(int button);
 private:
 
 };

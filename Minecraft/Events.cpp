@@ -86,6 +86,18 @@ bool Events::justPressed(int keycode)
 	return _keys[keycode] && _frames[keycode] == _current;
 }
 
+bool Events::clicked(int button)
+{
+	int index = _MOUSE_BUTTONS+button;
+	return _keys[index];
+}
+
+bool Events::justClicked(int button)
+{
+	int index = _MOUSE_BUTTONS + button;
+	return _keys[index] && _frames[index] == _current;
+}
+
 void Events::pullEvents()
 {
 	_current++;
