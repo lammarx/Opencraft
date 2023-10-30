@@ -110,5 +110,4 @@ Shader* load_shader(std::string vertexFile, std::string fragmentFile) {
 	glDeleteShader(fragment);
 	
 	return new Shader(id);
-	
 }

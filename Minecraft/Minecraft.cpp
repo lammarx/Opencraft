@@ -7,29 +7,31 @@
 #include "Window.h"
 #include "Events.h"
 #include "Shader.h"
+#include "Texture.h"
 
 #define WINDOW_X 1280
 #define WINDOW_Y 720
 
 float vertices[] = {
-        // x    y     z     u     v
-       -1.0f,-1.0f, 0.0f, 0.0f, 0.0f,
-        1.0f,-1.0f, 0.0f, 1.0f, 0.0f,
-       -1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+    // x    y     z     u     v
+   -1.0f,-1.0f, 0.0f, 0.0f, 0.0f,
+    1.0f,-1.0f, 0.0f, 1.0f, 0.0f,
+   -1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
 
-        1.0f,-1.0f, 0.0f, 1.0f, 0.0f,
-        1.0f, 1.0f, 0.0f, 1.0f, 1.0f,
-       -1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+    1.0f,-1.0f, 0.0f, 1.0f, 0.0f,
+    1.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+   -1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
 };
 
 void config()
 {
-    
+    glewExperimental = GL_TRUE;
+    glMatrixMode(GL_MODELVIEW);
 }
 
 int main()
 {
-    glewExperimental = GL_TRUE;
+    config();
     glewInit();
     Window::init(WINDOW_X, WINDOW_Y, "Minecraft");
     Events::init();
@@ -44,7 +46,10 @@ int main()
         Window::terminate();
         return 1;
     }
-    std::cout << glGetString(GL_VERSION);
+    std::cout << "Current OpenGL version: " << glGetString(GL_VERSION) << std::endl;
+
+    Texture texture("tex\\test.bmp");
+
     GLuint VAO = 0, VBO = 0;
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
@@ -55,10 +60,15 @@ int main()
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(0 * sizeof(GLfloat)));
     glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+    glEnableVertexAttribArray(1);
 
     glBindVertexArray(0);
 
     glClearColor(0.6f, 0.62f, 0.65f, 1);
+    glEnable(GL_BLEND); 
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
 
     while (!Window::isShouldClose())
     {
@@ -72,6 +82,7 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT);
 
         shader->use();
+
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 6);
         glBindVertexArray(0);
@@ -80,6 +91,8 @@ int main()
     }
 
     delete shader;
+    glDeleteBuffers(1, &VBO);
+    glDeleteVertexArrays(1, &VAO);
     Window::terminate();
     return 0;
 }
