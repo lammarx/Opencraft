@@ -25,6 +25,8 @@ public:
 
 	static bool clicked(int button);
 	static bool justClicked(int button);
+
+	static void toggleCursor();
 private:
 
 };

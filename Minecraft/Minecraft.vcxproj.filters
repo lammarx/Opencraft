@@ -31,6 +31,12 @@
     <Filter Include="Файлы заголовков\Loaders">
       <UniqueIdentifier>{5b7f4d16-820f-4fe7-809e-29acbfcd3e34}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\Voxels">
+      <UniqueIdentifier>{2559f03f-d27d-481a-a776-68d8b56ff363}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Voxels">
+      <UniqueIdentifier>{52224630-02b3-4677-be14-f5f33b62f241}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Minecraft.cpp">
@@ -51,6 +57,21 @@
     <ClCompile Include="stb_image.cpp">
       <Filter>Исходные файлы\Loaders</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Исходные файлы\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Исходные файлы\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="voxel.cpp">
+      <Filter>Исходные файлы\Voxels</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunk.cpp">
+      <Filter>Исходные файлы\Voxels</Filter>
+    </ClCompile>
+    <ClCompile Include="VoxelRenderer.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Events.h">
@@ -67,6 +88,21 @@
     </ClInclude>
     <ClInclude Include="stb_image.h">
       <Filter>Файлы заголовков\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Файлы заголовков\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Файлы заголовков\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="voxel.h">
+      <Filter>Файлы заголовков\Voxels</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunk.h">
+      <Filter>Файлы заголовков\Voxels</Filter>
+    </ClInclude>
+    <ClInclude Include="VoxelRenderer.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
