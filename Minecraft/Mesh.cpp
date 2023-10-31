@@ -16,6 +16,7 @@ Mesh::Mesh(const float* buffer, size_t vertices, const int* attrs) : vertices(ve
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertex_size * vertices, buffer, GL_STATIC_DRAW);
 
+	// attributes
 	int offset = 0;
 	for (int i = 0; attrs[i]; i++) 
 	{
@@ -30,7 +31,7 @@ Mesh::Mesh(const float* buffer, size_t vertices, const int* attrs) : vertices(ve
 
 Mesh::~Mesh()
 {
-	glDeleteVertexArrays(1, & vao);
+	glDeleteVertexArrays(1, &vao);
 	glDeleteBuffers(1, &vbo);
 }
 
