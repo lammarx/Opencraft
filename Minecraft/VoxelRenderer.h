@@ -13,6 +13,6 @@ public:
 	VoxelRenderer(size_t capacity);
 	~VoxelRenderer();
 
-	Mesh* render(Chunk* chunk);
+	Mesh* render(Chunk* chunk, const Chunk** chunks);
 };
 

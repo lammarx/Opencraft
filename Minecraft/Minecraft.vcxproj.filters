@@ -72,6 +72,9 @@
     <ClCompile Include="VoxelRenderer.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="ChunkEngine.cpp">
+      <Filter>Исходные файлы\Voxels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Events.h">
@@ -103,6 +106,9 @@
     </ClInclude>
     <ClInclude Include="VoxelRenderer.h">
       <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="ChunkEngine.h">
+      <Filter>Файлы заголовков\Voxels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
