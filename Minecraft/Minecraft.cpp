@@ -21,15 +21,12 @@ using namespace glm;
 #define WINDOW_X 1280
 #define WINDOW_Y 720
 
-
 int drawType;
 
 void config()
 {
     drawType = GL_TRIANGLES;
     glewExperimental = GL_TRUE; 
-
-    std::cout << "Current OpenGL version: " << glGetString(GL_VERSION) << std::endl;
 }
 
 int main()
@@ -48,7 +45,7 @@ int main()
         Window::terminate();
         return 1;
     }
-    Texture* texture = new Texture("tex\\grass.png");
+    Texture* texture = new Texture("tex\\atlas.png");
 
     VoxelRenderer renderer(1024 * 1024 * 8);
     Chunk* chunk = new Chunk();
@@ -61,8 +58,10 @@ int main()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
-    
     Camera* camera = new Camera(vec3(0, 0, 1), radians(70.0f));
+    float cameraSpeed = 5.0f;
+    float cameraRotationX = 0.0f;
+    float cameraRotationY = 0.0f;
 
     glm::mat4 model(1.0f);
     model = translate(model, vec3(0.5f, 0, 0));
@@ -70,18 +69,15 @@ int main()
     float lastTime = glfwGetTime();
     float delta = 0.0f;
 
-    float cameraSpeed = 5.0f;
-    const float cameraMaxSpeed = 5.0f;
-    const float cameraAcceleration = 0.0f;
-    float cameraRotationX = 0.0f;
-    float cameraRotationY = 0.0f;
-
+    std::cout << "Current OpenGL version: " << glGetString(GL_VERSION) << std::endl;
+    
     while (!Window::isShouldClose())
     {
         float currentTime = glfwGetTime();
         delta = currentTime - lastTime;
         lastTime = currentTime;
 
+        // Debug game control
         if (Events::justPressed(GLFW_KEY_ESCAPE)) {
             Window::setShouldClose(true);
         }
@@ -92,6 +88,8 @@ int main()
             if (drawType == GL_TRIANGLES) drawType = GL_LINES;
             else { drawType = GL_TRIANGLES; }
         }
+        
+        // Movement
         if (Events::pressed(GLFW_KEY_W)) {
             camera->position += camera->front * delta * cameraSpeed;
         }
@@ -104,6 +102,7 @@ int main()
         if (Events::pressed(GLFW_KEY_D)) {
             camera->position += camera->right * delta * cameraSpeed;
         }
+
         if (Events::_cursor_locked) {
             cameraRotationX += -Events::dy / Window::height;
             cameraRotationY += -Events::dx / Window::height;

@@ -40,10 +40,14 @@ Mesh* VoxelRenderer::render(Chunk* chunk) {
 				}
 
 				float l;
-				float uvsize = 1.0f;
+				/*
+				float uvsize = 1.0f / 16.0f;
 				float u = (id % 16) * uvsize;
-				float v = 1 - ((1 + id / 16) * uvsize);
-				
+				float v = ((id / 16) * uvsize);
+				*/
+				float uvsize = 1.0f / 16.0f;
+				float u = (id % 16) * uvsize;
+				float v = ((id / 16) * uvsize);
 				if (!IS_BLOCKED(x, y + 1, z)) {
 					l = 1.0f;
 					VERTEX(index, x - 0.5f, y + 0.5f, z - 0.5f, u + uvsize, v, l);
