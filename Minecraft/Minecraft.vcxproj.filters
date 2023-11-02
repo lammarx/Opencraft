@@ -37,6 +37,12 @@
     <Filter Include="Файлы заголовков\Voxels">
       <UniqueIdentifier>{52224630-02b3-4677-be14-f5f33b62f241}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\Files">
+      <UniqueIdentifier>{ea225034-87ee-4843-a9b6-46dc87c48324}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Files">
+      <UniqueIdentifier>{406003bc-ea23-4023-9c63-dc2174dd3385}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Minecraft.cpp">
@@ -78,6 +84,9 @@
     <ClCompile Include="VoxelRenderer.cpp">
       <Filter>Исходные файлы\Voxels</Filter>
     </ClCompile>
+    <ClCompile Include="files.cpp">
+      <Filter>Исходные файлы\Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Events.h">
@@ -115,6 +124,9 @@
     </ClInclude>
     <ClInclude Include="LineBatch.h">
       <Filter>Файлы заголовков\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="files.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

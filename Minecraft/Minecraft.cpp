@@ -19,6 +19,7 @@ using namespace glm;
 #include "voxel.h"
 #include "Chunk.h"
 #include "ChunkEngine.h"
+#include "files.h"
 
 #define WINDOW_X 1280
 #define WINDOW_Y 720
@@ -116,7 +117,19 @@ int main()
             if (drawType == GL_TRIANGLES) drawType = GL_LINES;
             else { drawType = GL_TRIANGLES; }
         }
-        
+        if (Events::justPressed(GLFW_KEY_F1)) {
+            unsigned char* buffer = new unsigned char[chunks->volume * CHUNK_VOL];
+            chunks->write(buffer);
+            write_binary_file("world.bin", (const char*)buffer, chunks->volume * CHUNK_VOL);
+            delete[] buffer;
+            std::cout << "World saved in " << (chunks->volume * CHUNK_VOL) << " bytes." << std::endl;
+        }
+        if (Events::justPressed(GLFW_KEY_F2)) {
+            unsigned char* buffer = new unsigned char[chunks->volume * CHUNK_VOL];
+            read_binary_file("world.bin", (char*)buffer, chunks->volume * CHUNK_VOL);
+            chunks->read(buffer);
+            delete[] buffer;
+        }
         // Movement
         if (Events::pressed(GLFW_KEY_W)) {
             camera->position += camera->front * delta * cameraSpeed;
