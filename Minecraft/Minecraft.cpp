@@ -61,7 +61,7 @@ int main()
     Shader* crosshairShader = load_shader("crosshair.vert", "crosshair.frag");
     Texture* texture = new Texture("tex\\atlas.png");
 
-    ChunkEngine* chunks = new ChunkEngine(8, 1, 8);
+    ChunkEngine* chunks = new ChunkEngine(8, 4, 8);
     Mesh** meshes = new Mesh*[chunks->volume];
     for (size_t i = 0; i < chunks->volume; i++)
         meshes[i] = nullptr;
@@ -129,8 +129,8 @@ int main()
             vec3 end;
             vec3 norm;
             vec3 iend;
-            voxel* vox = chunks->raycast(camera->position, camera->front, 10.0f, end, norm, iend);
-            if (vox != nullptr) 
+            voxel* voxel = chunks->raycast(camera->position, camera->front, 10.0f, end, norm, iend);
+            if (voxel != nullptr) 
             {
                 if (Events::justClicked(GLFW_MOUSE_BUTTON_1)) 
                 {
@@ -170,7 +170,7 @@ int main()
                 oz += 1;
                 closes[(oy * 3 + oz) * 3 + ox] = other;
             }
-            Mesh* mesh = renderer.render(chunk, (const Chunk**)closes);
+            Mesh* mesh = renderer.render(chunk, (const Chunk**)closes, true);
             meshes[i] = mesh;
         }
 
