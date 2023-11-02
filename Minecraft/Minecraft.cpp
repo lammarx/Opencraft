@@ -76,7 +76,7 @@ int main()
     
     Mesh* crosshair = new Mesh(vertices, 4, attrs);
     Camera* camera = new Camera(vec3(0, 0, 1), radians(70.0f));
-    float cameraSpeed = 5.0f;
+    float cameraSpeed = 10.0f;
     float cameraRotationX = 0.0f;
     float cameraRotationY = 0.0f;
 
