@@ -12,6 +12,7 @@ using namespace glm;
 #include "Texture.h"
 #include "Mesh.h"
 #include "VoxelRenderer.h"
+#include "LineBatch.h"
 #include "Window.h"
 #include "Events.h"
 #include "Camera.h"
@@ -59,6 +60,19 @@ int main()
         return 1;
     }
     Shader* crosshairShader = load_shader("crosshair.vert", "crosshair.frag");
+    if (shader == nullptr)
+    {
+        std::cerr << "failed to load crosshair shader" << std::endl;
+        Window::terminate();
+        return 1;
+    }
+    Shader* linesShader = load_shader("lines.vert", "lines.frag");
+    if (shader == nullptr)
+    {
+        std::cerr << "failed to load lines shader" << std::endl;
+        Window::terminate();
+        return 1;
+    }
     Texture* texture = new Texture("tex\\atlas.png");
 
     ChunkEngine* chunks = new ChunkEngine(8, 4, 8);
@@ -66,7 +80,7 @@ int main()
     for (size_t i = 0; i < chunks->volume; i++)
         meshes[i] = nullptr;
     VoxelRenderer renderer(1024 * 1024 * 8);
-    
+    LineBatch* lineBatch = new LineBatch(4096);
     glClearColor(0.6f, 0.62f, 0.65f, 1);
 
     glEnable(GL_DEPTH_TEST);
@@ -132,6 +146,7 @@ int main()
             voxel* voxel = chunks->raycast(camera->position, camera->front, 10.0f, end, norm, iend);
             if (voxel != nullptr) 
             {
+                lineBatch->box(iend.x+0.5f,iend.y+0.5f,iend.z+0.5f,1.01f,1.01f,1.01f,0,0,0,0.5f);
                 if (Events::justClicked(GLFW_MOUSE_BUTTON_1)) 
                 {
                     chunks->set((int)iend.x, (int)iend.y, (int)iend.z, 0);
@@ -191,15 +206,24 @@ int main()
         }
         crosshairShader->use();
         crosshair->draw(GL_LINES);
+
+        linesShader->use();
+        linesShader->uniformMatrix("projview", camera->getProjection()*camera->getView());
+        lineBatch->line(0.0f, 0.0f, 0.0f, 0.0f, 10.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f);
+        glLineWidth(2.0f);
+        lineBatch->render();
+
         Window::swapBuffers();
         Events::pullEvents();
     }
 
     delete shader;
     delete crosshairShader;
+    delete linesShader;
     delete crosshair;
     delete texture;
     delete chunks;
+    delete lineBatch;
     Window::terminate();
     return 0;
 }
